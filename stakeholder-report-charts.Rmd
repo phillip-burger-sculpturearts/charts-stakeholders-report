@@ -1,0 +1,1112 @@
+Using R and googleVis Charts for the UW Stakeholders Report 
+========================================================
+
+## Introduction
+This script is for the financial tab of the stakeholders report. The chunks below are in teh order that the charts appear in the report. 
+
+As of Monday, November 15, 2013, this is the list of charts for use in the stakeholders Report:
+
+* fintab1a
+* fintab2b
+* fintab3b
+* fintab4b
+* fintab5b
+* fintab6
+* fintab7
+* fintab8b
+* fintab9
+* fintab10
+* eartab1c
+* eartab1d - 1d and 1e are two options 
+* eartab1e -
+* eartab2
+* eartab3
+* eartab4b
+* eartab5 (not used)
+* eartab6
+* comtab1
+* comtab2
+
+The name of the respective html files will be different, as shown below in the call to plot() vs. the call to print(), in the chunks, where the charts are output.
+
+
+### Set up the environment
+Set the working directory for the folder that is used to store the charts. Execute this command afer testing and development and prior to printing the charts to their .html file output format.
+```{r}
+setwd("I:/groups/workgrps/FinForecasting/Master Financial Data Archive/scripts-to-create-googleVis-charts/charts-for-stakeholders-report")
+```
+
+Set the working directory back to the folder that contains the scripts. Use this directory except when printing charts to their .html output format.
+```{r}
+setwd("I:/groups/workgrps/FinForecasting/Master Financial Data Archive/scripts-to-create-googleVis-charts")
+```
+
+Use this next command to  knit the readme file. Execute this command at the console.
+```{r}
+require(knitr)
+knit2html("I:/groups/workgrps/FinForecasting/Master Financial Data Archive/scripts-to-create-googleVis-charts/README.Rmd", "README.html")
+```
+
+## Financial Tab
+Expendable financial reources to operations ratio, months of coverage, line chart (fintab1a).
+```{r fintab1a, results='asis', echo=FALSE, message=FALSE}
+# edits to js in .html file.  Replace the two data.addColumn() calls with these. Then, remove
+# the comments:
+#		data.addColumn('number','Moody\'s public universities');
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	UW=				c(7.8, 7.8, 8.3,  9.5,  8.9, 6.8, 7.9, 8.5, 8.5, 9.4),
+	Moodys=		c(9.1, 9.1, 10.7, 12.1, 7.6, 7.4, 9.8, 9.5, 12.1, 11.4))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("UW", "Moodys"),
+	options = list(series = {},
+		width = 650,
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		colors = "['#39275B', '#C79900']",
+		title = "Expendable Financial Resources to Operations Ratio: Months of Coverage",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title:'Months',
+			color: '#303030',
+			format:'#',
+			baseline:0}]",
+		vAxis = "[{}]",
+		lineWidth = 3),
+	chartid = 'fintab1')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab1.html")
+rm(chartVis1, df)
+```
+
+Expendable financial reources to operations ratio, months of coverage, column chart (fintab1b).
+```{r finab1b, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Ratio=c(0.078, 0.078, 0.083, 0.095, 0.089, 0.068, 0.079, 0.085, 0.085, 0.094))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = "Ratio",
+	options = list(series = "bars",  # or seriesType
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B']",
+		title = "Expendable Financial Resources to Operations Ratio: Months of Coverage",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#303030'}",
+		hAxes = "[{
+			color: '#303030',
+			fontSize: 10}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'0.0%',
+			baseline:0}]"),
+		chartid = 'fintab1')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab1.html")
+rm(chartVis1, df)
+```
+
+Expendable financial resources to direct debt ratio, column chart (fintab2a).
+```{r fintab2a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Ratio=c(0.024, 0.024, 0.024, 0.024, 0.025, 0.019, 0.021, 0.017, 0.015, 0.015))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = "Ratio",
+	options = list(series = "bars",  # or seriesType
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B']",
+		title = "Expendable Financial Resources to Direct Debt Ratio",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#303030'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'0.0%',
+			baseline:0}]",
+		vAxis = "{maxValue: 0.029}"),
+	chartid = 'fintab2')
+#plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab2.html")
+rm(chartVis1, df)
+```
+
+Expendable financial resources to direct debt ratio, line chart (fintab2b).
+```{r fintab2b, results='asis', echo=FALSE, message=FALSE}
+# Edits to js in .html file.  
+# Replace one data.addColumn() call that contains 'Moodys' with this call. The hash tag is a 
+# comment in R. Either don't copy the hashtag over or remove it from the .js after pasting
+# the line.
+# data.addColumn('number','Moody\'s public universities');
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	UW=			c(2.4, 2.4, 2.4, 2.4, 2.5, 1.9, 2.1, 1.7, 1.5, 1.5),
+	Moodys=	c(2.9, 2.5, 2.4, 2.3, 1.8, 1.6, 2.0, 1.9, 2.1, 2.0))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("UW", "Moodys"),
+	options = list(series = {},
+		width = 650,
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		axisTitlesPosition = 'out',
+		colors = "['#39275B', '#C79900']",
+		title = "Expendable Financial Resources to Direct Debt Ratio",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title:'Ratio',
+			color: '#303030',
+			format:'#',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab2')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab2.html")
+rm(chartVis1, df)
+```
+
+Operating margin percentage, column chart (fintab3a).
+```{r fintab3a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Ratio=c(0.003, -0.001, 0.008, 0.017, 0.011, 0.011, 0.055, 0.043, 0.021, 0.037))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = "Ratio",
+	options = list(series = "bars",  # or seriesType
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B']",
+		title = "Operating Margin Percentage",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#303030'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'0.000',
+			baseline:0}]"),
+	chartid = 'fintab3')
+#plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab3.html")
+rm(chartVis1, df)
+```
+
+Operating margin percentage, line chart (fintab3b).
+```{r fintab3b, results='asis', echo=FALSE, message=FALSE}
+# Edits to js in .html file.  Replace the two data.addColumn() calls with these. Then, remove
+# the comments:
+#		data.addColumn('number','Moody\'s public universities');
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	UW=			c(0.003, -0.001, 0.008, 0.017, 0.011, 0.011, 0.055, 0.043, 0.021, 0.037),
+	Moodys=	c(0.041,  0.052, 0.063, 0.041, 0.028, 0.036, 0.041, 0.054, 0.059, 0.046))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("UW", "Moodys"),
+	options = list(series = {},
+		width = 650,
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		colors = "['#39275B', '#C79900']",
+		axisTitlesPosition = 'out',
+		colors = "['#39275B']",
+		title = "Operating Margin Percentage",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'0%',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab3')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab3.html")
+rm(chartVis1, df)
+```
+
+Revenue from all sources dollars, column chart (fintab4a)
+```{r fintab4a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Revenue=c(2841, 3069, 3308, 3714, 3489, 3099, 3975, 4643, 4751, 5434))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = "Revenue",
+	options = list(series = "bars",  # or seriesType
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B']",
+		title = "Revenue from all Sources",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title:'Revenue ($ in millions)',
+			color: '#303030',
+			format:'#,###',
+			baseline:0}]",
+		vAxis = "{maxValue: 5000, 
+			minValue: 0}"),
+	chartid = 'fintab4')
+#plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab4.html")
+rm(chartVis1, df)
+```
+
+Revenue from all sources dollars, line chart (fintab4b)
+```{r fintab4b, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Revenue=c(2841, 3069, 3308, 3714, 3489, 3099, 3975, 4643, 4751, 5434))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = "Revenue",
+	options = list(series = {},
+		width = 650, 
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		colors = "['#39275B']",
+		title = "Revenue From all Sources",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Revenue ($ in millions)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab4')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab4.html")
+rm(chartVis1, df)
+```
+
+Revenue by source, stacked column chart (fintab5a)
+```{r fintab5a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2003", "2004", "2005", "2006", "2007", "2008", 
+		"2009", "2010", "2011", "2012", "2013"),
+	Other=		c(0.15, 0.18, 0.17, 0.20, 0.23, 0.13, 0.10, 0.17, 0.18, 0.11, 0.17),
+	Auxiliary=c(0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.03, 0.03, 0.03),
+	Tuition=	c(0.10, 0.11, 0.12, 0.12, 0.12, 0.14, 0.15, 0.13, 0.13, 0.14, 0.15), 
+	Patient=	c(0.24, 0.24, 0.24, 0.24, 0.23, 0.26, 0.27, 0.26, 0.29, 0.38, 0.35), 
+	State=		c(0.15, 0.12, 0.12, 0.11, 0.12, 0.13, 0.13, 0.09, 0.07, 0.05, 0.05),
+	Grants=		c(0.32, 0.31, 0.31, 0.29, 0.26, 0.30, 0.31, 0.31, 0.30, 0.29, 0.25))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = c("Other", "Auxiliary", "Tuition", "Patient", "State", "Grants"),
+	options = list(series = "bars",  # or seriesType
+		width = 800, 
+		height = 800 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		isStacked = TRUE,
+		focusTarget = 'category',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B', '#93B1CC', '#165788','#898F48', '#C79900', '#DBCEAC']",
+		title = "Revenue by Source",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{title:'Year',
+			color: '#303030'}]",
+		vAxes = "[{title:'Percent',
+			color: '#303030',
+			format:'##%',
+			baseline:0}]"
+#		vAxis = "{maxValue: 5000, 
+# 			minValue: 0}"
+		),
+	chartid = 'fintab5')
+#plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab5.html")
+rm(chartVis1, df)
+```
+
+Revenue by Source, line chart (fintab5b)
+```{r fintab5b, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=
+						c("2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Other=		c(0.15, 0.18, 0.17, 0.20, 0.23, 0.13, 0.10, 0.17, 0.18, 0.11, 0.17),
+	Auxiliary=c(0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.03, 0.03, 0.03),
+	Tuition=	c(0.10, 0.11, 0.12, 0.12, 0.12, 0.14, 0.15, 0.13, 0.13, 0.14, 0.15), 
+	Patient=	c(0.24, 0.24, 0.24, 0.24, 0.23, 0.26, 0.27, 0.26, 0.29, 0.38, 0.35), 
+	State=		c(0.15, 0.12, 0.12, 0.11, 0.12, 0.13, 0.13, 0.09, 0.07, 0.05, 0.05),
+	Grants=		c(0.32, 0.31, 0.31, 0.29, 0.26, 0.30, 0.31, 0.31, 0.30, 0.29, 0.25))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("State", "Tuition", "Grants", "Patient", "Other", "Auxiliary"),
+	options = list(series = {},
+		width = 750, 
+		height = 430,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = "category",
+		axisTitlesPosition = 'out',
+		colors = "['#165788', '#93B1CC',   '#898F48', '#DBCEAC', '#C79900',   '#39275B']",
+		title = "Revenue Percentage by Source",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'##%',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab5')  # do not use dashes in the chartid value
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab5.html")
+rm(chartVis1, df)
+```
+
+Total operating expenses in dollars, line chart (fintab6)
+```{r fintab6, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Revenue=c(2573, 2747, 2895, 3071, 3284, 3429, 3493, 4056, 4660, 4907))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = "Revenue",
+	options = list(series = {},
+		width = 650, 
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		colors = "['#39275B']",
+		title = "Total Operating Expenses",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Operating Expenses ($ in millions)',
+			color: '#303030',
+ 			format:'$#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab6')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab6.html")
+rm(chartVis1, df)
+```
+
+Total operating expenses in dollars, line chart (fintab7)
+```{r fintab7, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", 
+		"2009", "2010", "2011", "2012", "2013"),
+	Instruction=	c(0.23, 0.24, 0.25, 0.26, 0.25, 0.26, 0.26, 0.22, 0.20, 0.20),
+	Research=			c(0.21, 0.21, 0.21, 0.19, 0.19, 0.19, 0.20, 0.18, 0.17, 0.16),
+	Medical=			c(0.23, 0.23, 0.23, 0.22, 0.23, 0.23, 0.22, 0.29, 0.37, 0.36),
+	Academic=			c(0.07, 0.07, 0.07, 0.07,	0.08, 0.08,	0.07, 0.06, 0.05, 0.05), 
+	Depreciation =c(0.07, 0.07, 0.07, 0.06,	0.06, 0.06,	0.07, 0.06, 0.05, 0.06),
+	Plant = 			c(0.06, 0.05, 0.05, 0.06,	0.05, 0.05,	0.04, 0.04, 0.04, 0.04),
+	Auxiliary = 	c(0.05, 0.05, 0.04, 0.05,	0.05, 0.05,	0.05, 0.05, 0.04, 0.04),
+	Institutional=c(0.04, 0.04, 0.04, 0.05,	0.05, 0.04,	0.04, 0.05, 0.04, 0.04),
+	Scholarships =c(0.02, 0.02, 0.02, 0.02, 0.02, 0.02,	0.03, 0.03, 0.02, 0.03),
+	Student 		= c(0.01, 0.01, 0.01, 0.01,	0.01, 0.01, 0.01, 0.01, 0.01, 0.01),
+	Public 			= c(0.01, 0.01, 0.01, 0.01,	0.01, 0.01, 0.01, 0.01, 0.01, 0.01))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("Instruction", "Research", "Medical", "Academic", 
+		"Depreciation", "Plant", "Auxiliary", "Institutional", "Scholarships",
+		"Public"),
+	options = list(series = {},  # or seriesType
+		width = 700, 
+		height = 700 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		focusTarget = 'category',
+		bar = "{groupWidth:'50%'}",
+		colors = "['#39275B', '#93B1CC', '#165788','#898F48', '#C79900', '#DBCEAC',
+			'#927B4C', '#808080', '#4A7C01', '#355EA2', '#DFDAC9' ]",
+		title = "Operating Expenses by Classificaiton",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+			format:'##%',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab7')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab7.html")
+rm(chartVis1, df)
+```
+
+Education funding in dollars, line chart (fintab8a)
+```{r fintab8a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2009", "2010", "2011", "2012", "2013"),
+	Tuition=c(296, 351, 410, 461, 547),
+	State=  c(385, 303, 297, 218, 218))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("Tuition", "State"),
+	options = list(series = {},
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		focusTarget = 'category',
+		colors = "['#C79900', '#39275B']",
+		title = "State Appropriation and Tuition Revenue History",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Education Funding ($ in millions)',
+			color: '#303030',
+			format:'#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'fintab8')
+#plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab8.html")
+rm(chartVis1, df)
+```
+
+Education funding in dollars, stacked column chart (fintab8b)
+```{r fintab8b, results='asis', echo=FALSE, message=FALSE}
+# Edits to js in .html file.  Replace the two, existing data.addColumn() calls with 
+# these. Then, remove the hashtag character. Text to use:
+#		data.addColumn('number','Tuition revenue');
+#		data.addColumn('number','State funds');
+require(googleVis)
+df <- data.frame(Year=c("2009", "2010", "2011", "2012", "2013"),
+	Tuition=c(296, 351, 410, 461, 547),
+	State=  c(385, 303, 297, 218, 218))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = c( "Tuition","State"),
+	options = list(series = "bars",  # or seriesType
+		width = 500, 
+		height = 345,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		axisTitlesPosition = 'out',
+		isStacked = TRUE,
+		bar = "{groupWidth:'50%'}",
+		colors = "[  '#39275B', '#C79900']",
+		title = "State Appropriation and Tuition Revenue History",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title:'Education Funding ($ in millions)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]"
+		),
+	chartid = 'fintab8')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab8.html")
+rm(chartVis1, df)
+```
+
+Revenue from all sources dollars, bar chart (fintab9)
+```{r fintab9, results='asis', echo=FALSE, message=FALSE}
+# suggest that this not even be a chart. 
+require(googleVis)
+df <- data.frame(Group=c("Global Challenge", "UW"),
+	Amount=c(12136, 12393))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Group", 
+	yvar = "Amount",
+	options = list(series = "bars",  # or seriesType
+		#chartarea="{left:100,top:10, width:\"100%\", height:\"75%\"}",
+		width =  395, 
+		height = 250,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'30%'}",
+		colors = "['#39275B']",
+		title = "Comparison to Peer Tuition and Fee Rates for Fiscal Year 2013",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+ 			color: '#303030',
+		baseline:0}]",
+		vAxis = "{maxValue: 13000,
+			format:'$#,###',
+			minValue: 0}"),
+	chartid = 'fintab9')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "fintab9.html")
+rm(chartVis1, df)
+```
+
+Moody's bond rating, bar chart (fintab10)
+```{r fintab10, results='asis', echo=FALSE, message=FALSE}
+# <text font-style="italic" fill="black" y="92.7" x="190">UW bond rating is Aaa</text>
+# Or
+# change
+#  options["hAxes"] = [{title:'Moodys Rating', to options["hAxes"] = [{title:'Moody\'s Rating',
+require(googleVis)
+df <- data.frame(
+	Rating=					c("Aaa", "Aa1", "Aa2", "Aa3", "A1", "A2", "A3", "Baa1", "Baa2", "Baa3", "Ba4"),
+	Count=					c(8,      14,   41,     45,    64,   27,   18,   8,     1,      1,       1),
+	Anno =					c(10,      NA,   NA,     NA,    NA,   NA,   NA,   NA,     NA,      NA,       NA))
+chartVis1 <- gvisComboChart(df, 
+	xvar = "Rating", 
+	yvar = c("Count", "Anno"),
+	options = list(seriesType = "bars",
+		series = "[{type:'bars', 
+									targetIndex:0},
+							 {type:'line', 
+									targetIndex:1, 
+									color:'white'}]",
+		width =  740, 
+		height = 350,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'60%'}",
+		colors = "['#39275B']",
+		title = "Moody's Ratings for Public Colleges and Universities Fiscal Year 2013",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		vAxes = "[{title:'Count of Institutions'}]",
+		hAxes = "[{title:'Moodys Rating',
+			color: '#303030'}]"),
+	chartid = 'fintab10')
+plot(chartVis1)
+## .js and text tag is set. Do not overwrite the .html file unless you intend to
+#print(chartVis1, tag='chart', file = "fintab10.html")
+rm(chartVis1, df)
+```
+
+
+## Education and Research Tab
+
+Education and research student financial support, line chart (eartab1a)
+```{r eartab1a, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Scholarships 	= c(53566, 56647, 60399, 68664, 71087, 71394, 93219, 101388, 107729, 140897),
+	Allowances		= c(48424, 50119, 56121, 58227, 70231, 86790, 86319, 96138, 139000, 141655))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("Allowances", "Scholarships"),
+	options = list(series = {},
+		width = 650, 
+		height = 650 * 0.618,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		focusTarget = 'category',
+		colors = "['#C79900', '#39275B']",
+		title = "Student Support: Scholarship Allowance, Scholarships & Allowances",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Support ($ in thousands)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'eartab1')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab1.html")
+rm(df, chartVis1)
+```
+
+Education and research student financial support, column chart (eartab1b)
+```{r eartab1b, results='asis', echo=FALSE, message=FALSE}
+# try a combo chart that combines two stacked column charts, existing one plus one with total
+require(googleVis)
+df <- data.frame(Year=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Scholarships 	= c(53566, 56647, 60399, 68664, 71087, 71394, 93219, 101388, 107729, 140897),
+	Allowances		= c(48424, 50119, 56121, 58227, 70231, 86790, 86319, 96138, 139000, 141655),
+	Total					= c(101990, 106766, 116520, 126891, 141318, 158184, 179538, 197526, 246729, 282552))
+df$Scholarships <- round(df$Scholarships / 1000)
+df$Allowances <- round(df$Allowances / 1000)
+chartVis1 <- gvisColumnChart(df,
+	xvar = "Year", 
+	yvar = c("Scholarships", "Allowances"),
+	options = list(series = {},  # or seriesType
+		width = 650, 
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		axisTitlesPosition = 'out',
+		vAxis.gridlinesCount = '7',
+		isStacked = TRUE,
+		bar = "{groupWidth:'50%'}",
+		colors = "[  '#39275B', '#C79900', '']",
+		title = "Student Support: Scholarship Allowance, Scholarships & Allowances",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Support ($ in millions)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]"
+		),
+	chartid = 'eartab1')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab1.html")
+rm(df, chartVis1)
+```
+
+Education and research student financial support, combo chart (eartab1c)
+```{r eartab1c, results='asis', echo=FALSE, message=FALSE}
+# <text font-style="italic" fill="black" y="92.7" x="190">UW bond rating is Aaa</text>
+# Or
+# change
+#  options["hAxes"] = [{title:'Moodys Rating', to options["hAxes"] = [{title:'Moody\'s Rating',
+require(googleVis)
+df <- data.frame(
+	Category=				c("Federal", "State", "UW", "Private/Oth", "Loans"),
+	Awarded=				c(93677, 71967, 220048, 36310, 267213),
+	Students= 			c(15566, 7811, 24616, 7794, 21172))
+chartVis1 <- gvisComboChart(df, 
+	xvar = "Category", 
+	yvar = c("Awarded", "Students"),
+	options = list(seriesList = "bars",
+		series = "[{type:'bars', 
+				targetAxisIndex:0, color: '#39275B'},
+			{type:'line', 
+				targetAxisIndex:1, color: '#C79900'}]",
+		width =  660, 
+		height = 350,
+		font = "Arial",
+		fontSize = 12,
+		lineWidth = 3,
+		#axisTitlesPosition = 'out',
+	  bar = "{groupWidth:'45%'}",
+# 		colors = "['#39275B']",
+		title = "Summary of the UW Aid Profile Fiscal Year 2013",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = "[{position: 'right'}]",
+		vAxes = "[{title:'Aid Amount', format:'$#,###K'},
+			{title:'Student Count'}]",
+		vAxis = "[{}, 
+			{format:'#,###'}]",
+		hAxes = "[{title:'Category of Aid',
+			color: '#303030'}]"),
+	chartid = 'eartab1')
+plot(chartVis1)
+## .js and text tag is set. Do not overwrite the .html file unless you intend to
+print(chartVis1, tag='chart', file = "eartab1c.html")
+rm(chartVis1, df)
+```
+
+Aid by MFI, side-by-side column chart (eartab1d)
+```{r eartab1c, results='asis', echo=FALSE, message=FALSE}
+# <text font-style="italic" fill="black" y="92.7" x="190">UW bond rating is Aaa</text>
+# Or
+# change
+#  options["hAxes"] = [{title:'Moodys Rating', to options["hAxes"] = [{title:'Moody\'s Rating',
+require(googleVis)
+df <- data.frame(Year=c("2011", "2012", "2013"), 
+ A = c(11655, 12912, 	14776),
+ B = c(4218, 6121, 8227),
+ C = c(766, 1301, 1761))	
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = c("A", "B", "C"),
+	options = list(seriesList = "bars",
+		series = "[{}]",
+		width =  600, 
+		height = 350,
+		font = "Arial",
+		colors = "[  '#39275B', '#C79900', '#63B1E5']",
+
+		#axisTitlesPosition = 'out',
+	  bar = "{groupWidth:'45%'}",
+# 		colors = "['#39275B']",
+		title = "Average Per-Student Aid to Students Demonstrating Need",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = "[{position: 'right'}]",
+		vAxes = "[{title:'Aid Amount', format:'$#,###'}]"),
+# 		hAxes = "[{title:'Category of Aid',
+# 			color: '#303030'}]"),
+	chartid = 'eartab1')
+plot(chartVis1)
+## .js and text tag is set. Do not overwrite the .html file unless you intend to
+#print(chartVis1, tag='chart', file = "eartab1d.html")
+rm(chartVis1, df)
+```
+
+Aid by MFI, side-by-side column chart with line so combo (eartab1e)
+```{r eartab1c, results='asis', echo=FALSE, message=FALSE}
+# <text font-style="italic" fill="black" y="92.7" x="190">UW bond rating is Aaa</text>
+# Or
+# change
+#  options["hAxes"] = [{title:'Moodys Rating', to options["hAxes"] = [{title:'Moody\'s Rating',
+require(googleVis)
+df <- data.frame(Year=c("2011", "2012", "2013"), 
+ A = c(11655, 12912, 14776),
+ B = c(4218, 6121, 8227),
+ C = c(766, 1301, 1761),
+ D = c(8701, 10574, 12393))
+chartVis1 <- gvisComboChart(df, 
+	xvar = "Year", 
+	yvar = c("A", "B", "C", "D"),
+	options = list(seriesList = "bars",
+		series = "[{type:'bars', targetAxisIndex:0}, 
+			{type:'bars', targetAxisIndex:0},
+			{type:'bars', targetAxisIndex:0},
+			{type:'line', targetAxisIndex:1, lineWidth:3}]",
+		width =  600, 
+		height = 350,
+		font = "Arial",
+		colors = "['#39275B', '#C79900', '#63B1E5', '#D7C896']",
+	  bar = "{groupWidth:'45%'}",
+		title = "Average Per-Student Aid to Students Demonstrating Need",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = "[{position: 'right'}]",
+ 		vAxes = "[{title:'Aid Amount', format:'$#,###', maxValue: 16000},
+			{title:'Tuition and Fees', format:'$#,###', maxValue: 16000, minValue:0}]"),
+	chartid = 'eartab1')
+plot(chartVis1)
+## .js and text tag is set. Do not overwrite the .html file unless you intend to
+#rint(chartVis1, tag='chart', file = "eartab1e.html")
+rm(chartVis1, df)
+```
+
+
+Number of students eligible for Husky promise, line chart (eartab2)
+```{r eartab2, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2009", "2010", "2011", "2012", "2013"),
+	Count 	= c(5821, 6940, 8000, 8891, 9257))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = "Count",
+	options = list(series = {},
+		width = 600, 
+		height = 335,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		colors = "['#39275B']",
+		title = "Students Eligible for The Husky Promise",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		hAxes = "[{title: 'Fiscal Year',
+			color: '#303030'}]",
+		vAxes = "[{title: 'Count',
+			color: '#303030',
+			format:'#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'eartab2')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab2.html")
+rm(df, chartVis1)
+```
+
+Education and research, table (eartab3)
+```{r eartab3, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Category=c("Proporition of entering freshman whose parents hightest level of education was below a bachelor\'s degree",
+	"Proportion of entering freshmen whose parents never enrolled in college",
+	"Proportion of students graduating with a bachelor\'s degree whose parents never earned a college degree"),
+	Percent = c("31.09%", "16.45%", "28.58%"))
+chartVis1 <- gvisTable(df, 
+		options=list(height=150),
+	chartid='eartab3') # for knitr
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab3.html")
+rm(df, chartVis1)
+```
+
+Education and research, table (eartab4)
+```{r eartab4, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Category=c("Entering freshmen",
+	"Degree seeking undergraduate",
+	"Degree seeking graduate"),
+	Percent = c("11.71%", "11.72%", "9.38%"))
+chartVis1 <- gvisTable(df, 
+		options=list(height=130),
+	chartid='eartab4')  # use height option for knitr
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab4.html")
+rm(df, chartVis1)
+```
+
+Education and research, table (eartab4b)
+```{r eartab4b, results='asis', echo=FALSE, message=FALSE}
+# suggest that this not even be a chart. 
+require(googleVis)
+df <- data.frame(Category=c("Entering freshmen",
+	"Degree seeking undergraduate",
+	"Degree seeking graduate"),
+	Percent = c(0.1171, 0.1172, 0.0938))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Category", 
+	yvar = "Percent",
+	options = list(series = "bars",  # or seriesType
+		#chartarea="{left:100,top:10, width:\"100%\", height:\"75%\"}",
+		width =  510, 
+		height = 250,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'30%'}",
+		colors = "['#39275B']",
+		title = "Comparison to Peer Tuition and Fee Rates for Fiscal Year 2013",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{
+ 			color: '#303030',
+		baseline:0}]",
+		vAxis = "{maxValue: 0.13,
+			format:'0%',
+			minValue: 0}"),
+	chartid = 'eartab4')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab4.html")
+rm(df, chartVis1)
+```
+
+
+Six-year graduation rate, bar chart (eartab5) - NOT USED
+```{r eartab5, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+#require(colorspace)
+#require(colortools)
+#color <- rgb(57/255, 39/255, 91/255, 0.9)
+#color <- hex(color, gamma = 2.2, fixup = FALSE)
+df <- data.frame(Group=c("Global Challenge", "UW"),
+	Percent=c(0.80, 0.79))
+chartVis1 <- gvisBarChart(df, 
+	xvar = "Group", 
+	yvar = "Percent",
+	options = list(series = "bars",  # or seriesType
+		#chartarea="{left:100,top:10, width:\"100%\", height:\"75%\"}",
+		width =  465, 
+		height = 250,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		bar = "{groupWidth:'30%'}",
+		colors = "['#39275B']",
+		#colors = "['rgba(255,0,0,0.3)']", 
+		title = "Six Year Graduate Rate for 2012-2013",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		#legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{title: 'Percent',
+			color: '#303030'}]",
+		vAxes = "[{
+			color: '#303030',
+		baseline:0}]",
+		hAxis = "{maxValue: 100, 
+ 			format: '#.#%',
+			minValue: 0}"),
+	chartid = 'eartab5')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab5.html")
+rm(df, chartVis1)
+```
+
+Grant and contract awards, stacked-column chart (eartab6)
+```{r eartab6, results='asis', echo=FALSE, message=FALSE}
+# Edits to js in .html file.  Replace the two, existing data.addColumn() calls with 
+# these. Then, remove the hashtag character. Text to use:
+#		data.addColumn('number','Tuition revenue');
+#		data.addColumn('number','State funds');
+# Add the .js var formatter
+require(googleVis)
+df <- data.frame(
+	Year				=c("2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013"),
+	Federal 		=c(757,     792,      770,    793,    760,    787,    806,    987,    999,   808),
+	ARRA				=c(NA,       NA,       NA,     NA,     NA,     18,    191,    159,      7,     8),
+	NonFederal	=c(197,     204,      220,    228,    278,    321,    423,    367,    465,   422))
+chartVis1 <- gvisColumnChart(df, 
+	xvar = "Year", 
+	yvar = c( "Federal", "ARRA", "NonFederal"),
+	options = list(series = "bars",  # or seriesType
+		width = 650, 
+		height = 375,
+		font = "Arial",
+		fontSize = 12,
+		focusTarget = 'category',
+		axisTitlesPosition = 'out',
+		isStacked = TRUE,  # DBCEAC
+		bar = "{groupWidth:'50%'}", 
+		colors = "['#39275B', '#93B1CC', '#C79900']",
+		title = "Grant and Contract Awards",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'right',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Awarded Amount',
+			color: '#303030',
+			format:'$#,###M',
+			baseline:0}]"
+		),
+	chartid = 'eartab6')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "eartab6.html")
+rm(chartVis1, df)
+```
+
+
+## Community Tab
+
+Education and research student financial support, line chart (comtab1)
+```{r comtab1, results='asis', echo=FALSE, message=FALSE}
+require(googleVis)
+df <- data.frame(Year=c("2009", "2010", "2011", "2012", "2013"),
+	Amount 	= c(184, 223, 256, 325, 325))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("Amount"),
+	options = list(series = {},
+		width = 500, 
+		height = 305,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		focusTarget = 'category',
+		colors = "['#39275B']",
+		title = "UW Medicine Charity Care",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Charity Care ($ in millions)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'comtab1')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "comtab1.html")
+rm(df, chartVis1)
+```
+
+Education and research student financial support, column chart (comtab2)
+```{r comtab1, results='asis', echo=FALSE, message=FALSE}
+df <- data.frame(Year=c("2010", "2011", "2012", "2013"),
+	Amount 	= c(465, 567, 597, 637))
+chartVis1 <- gvisLineChart(df, 
+	xvar = "Year", 
+	yvar = c("Amount"),
+	options = list(series = {},
+		width = 480, 
+		height = 305,
+		font = "Arial",
+		fontSize = 12,
+		axisTitlesPosition = 'out',
+		focusTarget = 'category',
+		colors = "['#39275B']",
+		title = "Total UW Spend in Washington State",
+		titleTextStyle = "{color: '#303030',  
+			fontSize: 14}",
+		legend = 'none',
+		legend.textStyle = "{color: '#262626'}",
+		hAxes = "[{
+			color: '#303030'}]",
+		vAxes = "[{title: 'Spend Amount ($ in millions)',
+			color: '#303030',
+			format:'$#,###',
+			baseline:0}]",
+		lineWidth = 3),
+	chartid = 'comtab2')
+plot(chartVis1)
+#print(chartVis1, tag='chart', file = "comtab2.html")
+rm(df, chartVis1)
+```

@@ -52,7 +52,7 @@ var datajson =
 ] 
 ];
 data.addColumn('string','Year');
-data.addColumn('number','Revenue');
+data.addColumn('number','Expenses');
 data.addRows(datajson);
 return(data);
 }
